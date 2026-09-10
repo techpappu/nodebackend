@@ -1,0 +1,22 @@
+:root { font-family: Inter, system-ui, sans-serif; color: #172033; background: #f4f6f9; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 22px max(24px, calc((100% - 1000px) / 2)); background: #172554; color: white; }
+h1, h2, p { margin-top: 0; } header h1 { margin-bottom: 4px; } header p { margin-bottom: 0; opacity: .75; }
+main { max-width: 1000px; margin: 28px auto; padding: 0 20px; }
+.auth-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.card { padding: 22px; background: white; border: 1px solid #dce1e9; border-radius: 12px; box-shadow: 0 3px 12px #1720330d; }
+label { display: block; margin: 14px 0; font-weight: 600; }
+input, textarea, select { display: block; width: 100%; margin-top: 6px; padding: 10px 12px; font: inherit; border: 1px solid #bbc3d0; border-radius: 7px; }
+textarea { resize: vertical; }
+button { padding: 10px 16px; border: 0; border-radius: 7px; color: white; background: #2563eb; font-weight: 700; cursor: pointer; }
+button:hover { filter: brightness(.94); } button.secondary { color: #172033; background: #e5e9f0; } button.danger { background: #dc2626; }
+.hidden { display: none !important; }
+.message { margin-bottom: 18px; padding: 12px 15px; border-radius: 8px; background: #dcfce7; color: #166534; }
+.message.error { background: #fee2e2; color: #991b1b; }
+.tabs { display: flex; gap: 8px; margin-bottom: 18px; }.tabs button { background: #dfe5ef; color: #344054; }.tabs button.active { background: #2563eb; color: white; }
+.panel { display: grid; gap: 18px; }.editor { max-width: 650px; }.actions, #session, .section-heading, .inline { display: flex; align-items: center; gap: 10px; }.section-heading { justify-content: space-between; }.section-heading h2 { margin: 0; }
+.inline input { margin: 0; }.inline button { flex: 0 0 auto; }
+.list { display: grid; gap: 12px; }.item { background: white; border: 1px solid #dce1e9; border-radius: 10px; padding: 17px; }.item h3 { margin: 0 0 8px; }.item p { white-space: pre-wrap; overflow-wrap: anywhere; }.meta { color: #667085; font-size: .85rem; }.item .actions { margin-top: 12px; }
+small { color: #667085; font-weight: 400; }
+@media (max-width: 650px) { .auth-grid { grid-template-columns: 1fr; } header { align-items: flex-start; } #session { flex-direction: column; align-items: flex-end; } }

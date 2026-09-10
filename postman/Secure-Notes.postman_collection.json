@@ -1,0 +1,21 @@
+{
+  "info": { "name": "Secure Notes API", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "token", "value": "" }, { "key": "adminToken", "value": "" },
+    { "key": "noteId", "value": "" }, { "key": "userId", "value": "" }
+  ],
+  "item": [
+    { "name": "Register", "event": [{ "listen": "test", "script": { "exec": ["const j=pm.response.json(); pm.collectionVariables.set('token',j.data.token); pm.collectionVariables.set('userId',j.data.user._id);"] } }], "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"name\":\"Sam\",\"email\":\"sam@example.com\",\"password\":\"correct-horse-42\",\"interests\":[\"coding\",\"music\"]}" }, "url": "{{baseUrl}}/auth/register" } },
+    { "name": "Login", "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('token',pm.response.json().data.token);"] } }], "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"email\":\"sam@example.com\",\"password\":\"correct-horse-42\"}" }, "url": "{{baseUrl}}/auth/login" } },
+    { "name": "My Profile", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/auth/me" } },
+    { "name": "Create Note", "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('noteId',pm.response.json().data._id);"] } }], "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"title\":\"Private idea\",\"content\":\"A secure note\"}" }, "url": "{{baseUrl}}/notes" } },
+    { "name": "List Notes (Pagination)", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/notes?page=1&limit=10" } },
+    { "name": "Update Note", "request": { "method": "PUT", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"title\":\"Updated idea\"}" }, "url": "{{baseUrl}}/notes/{{noteId}}" } },
+    { "name": "Delete Note", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/notes/{{noteId}}" } },
+    { "name": "Create Post", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"title\":\"Hello\",\"content\":\"A public post\"}" }, "url": "{{baseUrl}}/posts" } },
+    { "name": "User Posts ($lookup)", "request": { "method": "GET", "url": "{{baseUrl}}/users/{{userId}}/posts" } },
+    { "name": "Admin - List Users", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/users?page=1&limit=10" } },
+    { "name": "Admin - Group Interests", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/users/group/interests" } }
+  ]
+}

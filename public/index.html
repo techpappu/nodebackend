@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Notes</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Secure Notes</h1>
+      <p>Private notes and public posts</p>
+    </div>
+    <div id="session" class="hidden">
+      <span id="user-name"></span>
+      <button id="logout" class="secondary">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="message" class="message hidden"></div>
+
+    <section id="auth-view" class="auth-grid">
+      <form id="login-form" class="card">
+        <h2>Log in</h2>
+        <label>Email<input name="email" type="email" required></label>
+        <label>Password<input name="password" type="password" required></label>
+        <button>Log in</button>
+      </form>
+
+      <form id="register-form" class="card">
+        <h2>Create account</h2>
+        <label>Name<input name="name" required maxlength="100"></label>
+        <label>Email<input name="email" type="email" required></label>
+        <label>Password<input name="password" type="password" minlength="8" required></label>
+        <label>Interests <small>(comma separated)</small><input name="interests" placeholder="coding, music"></label>
+        <button>Create account</button>
+      </form>
+    </section>
+
+    <section id="app-view" class="hidden">
+      <nav class="tabs">
+        <button data-tab="notes" class="active">My notes</button>
+        <button data-tab="posts">Public posts</button>
+        <button data-tab="admin" id="admin-tab" class="hidden">Admin</button>
+      </nav>
+
+      <div id="notes-panel" class="panel">
+        <form id="note-form" class="card editor">
+          <h2 id="note-form-title">New note</h2>
+          <input type="hidden" name="id">
+          <label>Title<input name="title" required maxlength="200"></label>
+          <label>Content<textarea name="content" required rows="5"></textarea></label>
+          <div class="actions"><button>Save note</button><button type="button" id="cancel-edit" class="secondary hidden">Cancel</button></div>
+        </form>
+        <div class="section-heading"><h2>Notes</h2><button id="refresh-notes" class="secondary">Refresh</button></div>
+        <div id="notes-list" class="list"></div>
+      </div>
+
+      <div id="posts-panel" class="panel hidden">
+        <form id="post-form" class="card editor">
+          <h2>New public post</h2>
+          <label>Title<input name="title" required maxlength="200"></label>
+          <label>Content<textarea name="content" required rows="4"></textarea></label>
+          <button>Publish</button>
+        </form>
+        <div class="card">
+          <h2>Select a user's posts</h2>
+          <form id="find-posts-form" class="inline"><select name="userId" required><option value="">Select a user</option></select><button>Show posts</button></form>
+          <div id="posts-list" class="list"></div>
+        </div>
+      </div>
+
+      <div id="admin-panel" class="panel hidden">
+        <form id="admin-user-form" class="card editor">
+          <h2>Add user</h2>
+          <label>Name<input name="name" required></label><label>Email<input name="email" type="email" required></label>
+          <label>Password<input name="password" type="password" minlength="8" required></label>
+          <label>Role<select name="role"><option>USER</option><option>ADMIN</option></select></label>
+          <button>Add user</button>
+        </form>
+        <div class="section-heading"><h2>Users</h2><button id="load-interests" class="secondary">Group interests</button></div>
+        <div id="users-list" class="list"></div>
+        <div id="interests-list" class="list"></div>
+      </div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
